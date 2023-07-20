@@ -45,6 +45,29 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    // restock product item and update
+    app.put('/productId/:id', async (req, res) => {
+      const id = req.params.id;
+      const updateQuantity = req.body;
+      const query = { _id: ObjectId(id) };
+      const options = { upsert: true };
+      const updateDoc = {
+        $set: {
+          quantity: updateQuantity.quantity,
+        },
+      };
+      const result = await productCollection.updateOne(
+        query,
+        updateDoc,
+        options
+      );
+      res.send(result);
+    });
+    // // Delete all product
+    app.delete('/productDelete', async (req, res) => {
+      const result = await productCollection.deleteMany(query);
+      res.send(result);
+    });
     // // // get product filter by category
     // app.get('/products/:category', async (req, res) => {
     //   const category = req.params.category;
