@@ -28,6 +28,9 @@ async function run() {
     const productCollection = client
       .db('vat_management')
       .collection('products');
+    const bookProductCollection = client
+      .db('vat_management')
+      .collection('bookings');
 
     //   // // // // // // // // // // // //
 
@@ -87,6 +90,14 @@ async function run() {
     // // Delete all product
     app.delete('/productDelete', async (req, res) => {
       const result = await productCollection.deleteMany(query);
+      res.send(result);
+    });
+
+    // // booking Product
+
+    app.post('/booking', async (req, res) => {
+      const postResult = req.body;
+      const result = await bookProductCollection.insertOne(postResult);
       res.send(result);
     });
     // // // get product filter by category
