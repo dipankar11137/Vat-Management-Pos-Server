@@ -100,6 +100,13 @@ async function run() {
       const result = await bookProductCollection.insertOne(postResult);
       res.send(result);
     });
+    // // get booking products
+    app.get('/booking', async (req, res) => {
+      const query = {};
+      const cursor = bookProductCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
     // // // get product filter by category
     // app.get('/products/:category', async (req, res) => {
     //   const category = req.params.category;
