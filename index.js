@@ -32,12 +32,12 @@ async function run() {
     //   // // // // // // // // // // // //
 
     // // //                     product   //
-    // // // post product
-    // app.post('/allProduct', async (req, res) => {
-    //   const postResult = req.body;
-    //   const result = await productCollection.insertOne(postResult);
-    //   res.send(result);
-    // });
+    // // post product
+    app.post('/allProduct', async (req, res) => {
+      const postResult = req.body;
+      const result = await productCollection.insertOne(postResult);
+      res.send(result);
+    });
     // // get products
     app.get('/allProduct', async (req, res) => {
       const query = {};
