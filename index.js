@@ -24,55 +24,12 @@ async function run() {
   try {
     await client.connect();
     // console.log("database connect");
-    // const userCollection = client
-    //   .db('interactive_dashboard')
-    //   .collection('user');
-    // const productCollection = client
-    //   .db('interactive_dashboard')
-    //   .collection('products');
-    // const buyProductCollection = client
-    //   .db('interactive_dashboard')
-    //   .collection('buyProducts');
-    // const contactCollection = client
-    //   .db('interactive_dashboard')
-    //   .collection('contacts');
+
+    const productCollection = client
+      .db('vat_management')
+      .collection('products');
+
     //   // // // // // // // // // // // //
-
-    // create and update User
-    //create and update a user
-    // app.put('/create-user/:email', async (req, res) => {
-    //   const email = req.params.email;
-    //   const user = req.body;
-
-    //   const filter = { email: email };
-    //   const options = { upsert: true };
-
-    //   const updatedDoc = {
-    //     $set: user,
-    //   };
-
-    //   const result = await userCollection.updateOne(
-    //     filter,
-    //     updatedDoc,
-    //     options
-    //   );
-    //   res.send(result);
-    // });
-    // // // get user
-    // app.get('/user', async (req, res) => {
-    //   const query = {};
-    //   const cursor = userCollection.find(query);
-    //   const result = await cursor.toArray();
-    //   res.send(result);
-    // });
-    // // // all User filter by email category
-    // app.get('/user/:email', async (req, res) => {
-    //   const email = req.params.email;
-    //   const query = { email };
-    //   const cursor = userCollection.find(query);
-    //   const user = await cursor.toArray();
-    //   res.send(user);
-    // });
 
     // // //                     product   //
     // // // post product
@@ -81,13 +38,13 @@ async function run() {
     //   const result = await productCollection.insertOne(postResult);
     //   res.send(result);
     // });
-    // // // get products
-    // app.get('/allProduct', async (req, res) => {
-    //   const query = {};
-    //   const cursor = productCollection.find(query);
-    //   const result = await cursor.toArray();
-    //   res.send(result);
-    // });
+    // // get products
+    app.get('/allProduct', async (req, res) => {
+      const query = {};
+      const cursor = productCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
     // // // get product filter by category
     // app.get('/products/:category', async (req, res) => {
     //   const category = req.params.category;
