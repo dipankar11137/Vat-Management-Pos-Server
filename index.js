@@ -107,6 +107,18 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+    // Delete all book
+    app.delete('/bookings', async (req, res) => {
+      const result = await bookProductCollection.deleteMany();
+      res.send(result);
+    });
+    // Delete one book  Product
+    app.delete('/booking/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: ObjectId(id) };
+      const result = await bookProductCollection.deleteOne(query);
+      res.send(result);
+    });
     // // // get product filter by category
     // app.get('/products/:category', async (req, res) => {
     //   const category = req.params.category;
