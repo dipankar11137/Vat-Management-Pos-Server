@@ -81,7 +81,7 @@ async function run() {
       res.send(result);
     });
     // // get product by id
-    app.get('/allProduct/:id', async (req, res) => {
+    app.get('/allProducts/:id', async (req, res) => {
       const id = req.params.id;
       const query = { pId: id };
       const result = await productCollection.findOne(query);
