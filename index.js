@@ -32,6 +32,9 @@ async function run() {
       .db('vat_management')
       .collection('bookings');
     const buyProductCollection = client.db('vat_management').collection('buys');
+    const updateProductCollection = client
+      .db('vat_management')
+      .collection('updateProducts');
 
     //   // // // // // // // // // // // //
 
@@ -94,6 +97,13 @@ async function run() {
       res.send(result);
     });
 
+    // // update Product
+
+    app.post('/updateProduct', async (req, res) => {
+      const postResult = req.body;
+      const result = await updateProductCollection.insertOne(postResult);
+      res.send(result);
+    });
     // // booking Product
 
     app.post('/bookings', async (req, res) => {
