@@ -104,6 +104,13 @@ async function run() {
       const result = await updateProductCollection.insertOne(postResult);
       res.send(result);
     });
+    //  get update Product
+    app.get('/updateProduct', async (req, res) => {
+      const query = {};
+      const cursor = updateProductCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    });
     // // booking Product
 
     app.post('/bookings', async (req, res) => {
