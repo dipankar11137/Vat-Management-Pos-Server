@@ -14,6 +14,9 @@ app.use(express.json());
 const uri =
   'mongodb+srv://vat_management:U9zN7Q47bHvQQNz0@cluster0.kpvnuu1.mongodb.net/?retryWrites=true&w=majority';
 
+// const uri =
+  // 'mongodb+srv://masterdrunken846:QONP1aSOWNNnbQfy@cluster0.vo8cjkf.mongodb.net/?retryWrites=true&w=majority';
+
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -24,7 +27,7 @@ async function run() {
   try {
     await client.connect();
     // console.log("database connect");
-
+   const userCollection = client.db('vat_management').collection('user');
     const productCollection = client
       .db('vat_management')
       .collection('products');
@@ -37,6 +40,35 @@ async function run() {
       .collection('updateProducts');
 
     //   // // // // // // // // // // // //
+    // // post User
+    //create and update a user
+    app.put('/create-user/:email', async (req, res) => {
+      const email = req.params.email;
+      const user = req.body;
+
+      const filter = { email: email };
+      const options = { upsert: true };
+
+      const updatedDoc = {
+        $set: user,
+      };
+
+      const result = await userCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+
+      res.send(result);
+    });
+
+    // get all user
+    app.get('/user', async (req, res) => {
+      const query = {};
+      const cursor = userCollection.find(query);
+      const newCollection = await cursor.toArray();
+      res.send(newCollection);
+    });
 
     // // //                     product   //
     // // post product
